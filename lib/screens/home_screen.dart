@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_app/screens/add_task.dart';
 import 'package:task_app/screens/all_tasks.dart';
 import 'package:task_app/utils/app_colors.dart';
 import 'package:task_app/widgets/button_widget.dart';
@@ -50,10 +51,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Column(
               children: [
-                myButton(
-                  backgroundColor: AppColors.maincolor,
-                  textColor: Colors.white,
-                  text: "Add Task",
+                InkWell(
+                  onTap: () {
+                    Get.to(
+                      () => AddTask(),
+                      transition: Transition.zoom,
+                      duration: Duration(milliseconds: 400),
+                    );
+                  },
+                  child: myButton(
+                    backgroundColor: AppColors.maincolor,
+                    textColor: Colors.white,
+                    text: "Add Task",
+                  ),
                 ),
                 const SizedBox(height: 10),
                 InkWell(
