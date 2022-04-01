@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_app/models/task_model.dart';
+import 'package:task_app/screens/all_tasks.dart';
 import 'package:task_app/utils/app_colors.dart';
 import 'package:task_app/widgets/button_widget.dart';
 import 'package:task_app/widgets/textfield_widget.dart';
@@ -56,10 +58,23 @@ class AddTask extends StatelessWidget {
                   maxLines: 4,
                 ),
                 const SizedBox(height: 20),
-                myButton(
-                  backgroundColor: AppColors.maincolor,
-                  textColor: Colors.white,
-                  text: "Add",
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AllTasks(
+                          tasks: taskController.text,
+                          name: nameController.text,
+                        ),
+                      ),
+                    );
+                  },
+                  child: myButton(
+                    backgroundColor: AppColors.maincolor,
+                    textColor: Colors.white,
+                    text: "Add",
+                  ),
                 ),
               ],
             ),

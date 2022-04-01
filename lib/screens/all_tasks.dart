@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_app/models/task_model.dart';
+import 'package:task_app/screens/add_task.dart';
+import 'package:task_app/screens/home_screen.dart';
 import 'package:task_app/utils/app_colors.dart';
 import 'package:task_app/widgets/button_widget.dart';
 import 'package:task_app/widgets/task_widget.dart';
 
 class AllTasks extends StatelessWidget {
-  const AllTasks({Key? key}) : super(key: key);
+  final String? name, tasks;
+  const AllTasks({Key? key, this.tasks, this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List myData = [
-      "Try Harder",
-      "Try Smarter",
+    List<Map<String, String>> map = [
+      {'name': name.toString(), 'tasks': tasks.toString()}
     ];
 
     final leftEditIcon = Container(
@@ -42,7 +45,7 @@ class AllTasks extends StatelessWidget {
               ),
             ),
             child: InkWell(
-              onTap: (){
+              onTap: () {
                 Get.back();
               },
               child: Icon(Icons.arrow_back, color: AppColors.secondaryColor),
@@ -55,19 +58,29 @@ class AllTasks extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(
-                      Icons.home,
-                      color: AppColors.secondaryColor,
-                      size: 25,
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => HomeScreen());
+                      },
+                      child: Icon(
+                        Icons.home,
+                        color: AppColors.secondaryColor,
+                        size: 25,
+                      ),
                     ),
                     SizedBox(width: 10),
-                    Container(
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.5),
-                          color: AppColors.maincolor.withOpacity(0.8)),
-                      child: Icon(Icons.add, color: Colors.white, size: 20),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => AddTask());
+                      },
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.5),
+                            color: AppColors.maincolor.withOpacity(0.8)),
+                        child: Icon(Icons.add, color: Colors.white, size: 20),
+                      ),
                     ),
                   ],
                 ),
@@ -80,7 +93,7 @@ class AllTasks extends StatelessWidget {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      "2",
+                      map.length.toString(),
                       style: TextStyle(
                         fontSize: 20,
                         color: AppColors.secondaryColor,
@@ -93,7 +106,7 @@ class AllTasks extends StatelessWidget {
           ),
           Flexible(
             child: ListView.builder(
-              itemCount: myData.length,
+              itemCount: map.length,
               itemBuilder: (context, index) {
                 return Dismissible(
                   background: leftEditIcon,
@@ -146,7 +159,7 @@ class AllTasks extends StatelessWidget {
                     margin:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     child: TaskWidget(
-                      text: myData[index],
+                      text: map[0]['name'].toString(),
                       color: Colors.blueGrey,
                     ),
                   ),
